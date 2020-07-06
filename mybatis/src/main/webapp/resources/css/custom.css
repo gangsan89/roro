@@ -1,0 +1,87 @@
+@charset "UTF-8";
+#header .util-area .right-link {
+	top:50px;	
+}
+
+#header .util-area .right-link a {
+	font-size:18px;
+}
+
+#contents{
+    width: 80%;
+    margin: auto;
+    padding-bottom: 100px;
+}
+
+#wrap{
+	 width: 430px;
+    margin: auto;
+    margin-top: 210px;
+    border: 2px solid #efeef1;
+}
+
+.layer-header{
+	 position: flex  !important;
+}
+
+.gnb-txt-login{
+	background-image: url(/images/login.png);
+	width:10%;
+}
+
+.gnb-txt-sighup{
+	background-image: url(/images/sighup.png);
+	width:10%;
+	}
+	
+.gnb-txt-myPage{
+	background-image: url(/images/myPage.png);
+	width:10%;
+	}
+.gnb-txt-movies{
+	background-image: url(/images/movie.PNG);
+	width:10%;
+}
+
+.gnb-txt-ticketting{
+	background-image: url(/images/ticketting.PNG);
+	width:10%;
+}
+.gnb-txt-theaters{
+	background-image: url(/images/theater.PNG);
+	width:10%;
+}
+.gnb-txt-logout{
+	background-image: url(/images/logOut.PNG);
+	width:10%;
+}
+
+
+.sighUpLogo{
+	cursor: pointer;
+	display: block;
+    width: 147px;
+    height: 60px;
+    margin: auto;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    background: url(/images/movieLogo.PNG) center center no-repeat; !important
+}
+
+.gnb-txt-user{
+	right: 310px;
+    position: absolute;
+    top: -38px;
+    height: 38px;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    width:10%;
+}
+
+.getMovieImages{
+	display:block;
+}
+.width350{
+	width:350px;
+}

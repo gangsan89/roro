@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.bit.mybati.model.dao.DeptDAO">
+	
+	
+	  
+   <select id="getAllDepts" resultType="dept" >
+   		SELECT deptno, dname, loc FROM dept
+   </select>
+   
+   <select id="getDept" parameterType="int" resultType="dept">
+   		SELECT deptNo, dName, loc FROM dept 
+   		WHERE deptno = #{deptNo}
+   </select>
+  
+  
+  </mapper>
+  
+  
+  
+  

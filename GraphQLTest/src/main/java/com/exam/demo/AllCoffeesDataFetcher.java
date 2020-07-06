@@ -16,6 +16,7 @@ public class AllCoffeesDataFetcher implements DataFetcher<List<Coffee>> {
 		this.coffeeRepository = coffeeRepository;
 	}
 	
+	
 	@Override
 	public List<Coffee> get(DataFetchingEnvironment dataFetchingEnvironment) {
 		return coffeeRepository.findAll();

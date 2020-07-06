@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:property-placeholder location="classpath:config/jdbc.properties" />
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+						  p:driverClassName="${jdbc.driverClassName}" 
+						  p:url="${jdbc.url}"
+						  p:username="${jdbc.username}" 
+						  p:password="${jdbc.password}" />
+	
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="mapperLocations" value="classpath:sql/**/*Mapper.xml" />
+		<property name="typeAliasesPackage" value="com.bit.mybati.model.domain" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	
+	<!--마이바티스 컴포넌트 스캔  -->
+	<mybatis-spring:scan base-package="com.bit.mybati.model.dao"/>
+	
+	 
+
+	 
+</beans>

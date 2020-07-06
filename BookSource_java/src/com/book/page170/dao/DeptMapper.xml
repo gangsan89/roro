@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.book.page170.dao.DeptDao">
+
+	<select id="getAllDept" resultType="com.book.page170.domain.Dept">
+		select * from dept
+	</select>
+	
+	<select id="getDept" parameterType="int" resultType="com.book.page170.domain.Dept">
+		select deptno, dname, loc from dept where deptno = #{deptno} 
+	</select>
+</mapper>
+
+
+

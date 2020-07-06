@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bit.camp.com.model.dao.PaymentDao">
+
+	
+
+	<select id="selectCustomerCount" resultType="int" parameterType="reservation">
+		SELECT customerCount FROM customer WHERE CustomerID = #{customer.customerID}
+	</select>
+	
+	<select id="selectRoomCount" parameterType="reservation" resultType="int">
+		select count(*) 
+			   from reservation ,room 
+			   where ReservationStartDate<![CDATA[<=]]>#{reservationFinishDate}
+					 and ReservationFinishDate <![CDATA[>=]]> #{reservationStartDate} 
+					 and  room.roomtypecount=#{room.roomTypeTable.roomTypeCount} 
+					 and room.roomCount = reservation.roomCount 
+	</select>
+	<select id="selectRoomTypeCount" resultType="int" parameterType="reservation">
+		SELECT roomTypeCount 
+			   FROM RoomType 
+			   WHERE roomType= #{room.roomTypeTable.roomType} 
+	</select>
+	
+	<select id="selectReservationCount" resultType="int">
+		SELECT reservationCount 
+			   FROM reservation 
+			   order by reservationCount DESC limit 1
+	</select>
+	<delete id="deleteReservation">
+		DELETE FROM reservation 
+			   WHERE SSNumber=#{SSNumber} , RestvationStartDate=#{RestvationStartDate}
+	</delete>
+	<select id="selectRoom" parameterType="reservation" resultType="int">
+	    select roomCount 
+	    	   from room  
+	    	   where roomTypeCount=#{room.roomTypeTable.roomTypeCount} 
+	</select>
+		<select id="selectRoomType" parameterType="string" resultType="int">
+	        select room.roomcount 
+	        	   from room ,roomType 
+	        	   where roomtype.roomtypecount = room.roomtypecount 
+	        	   and roomtype.roomtype=#{roomType} 
+	</select>
+	<select id="selectRoomTypeCode" parameterType="reservation" resultType="String">
+		select distinct roomType.roomType 
+			   from room,roomType 
+			   where RoomPerson=#{room.roomPerson} 
+					 and roomType.roomTypeCount=room.roomTypeCount;
+	</select>
+	<insert id="insertReservation" parameterType="reservation">
+		INSERT INTO reservation (
+		reservationStartDate, reservationFinishDate, totalAmount,customerCount, roomCount ,editCode
+		) VALUES ( #{reservationStartDate}, #{reservationFinishDate},#{totalAmount}, #{customer.customerCount}, #{room.roomCount},1 )
+	</insert>
+	
+	<insert id="insertPaymentMethod" parameterType="paymentMethodTable">
+		INSERT INTO paymentMethod ( 
+		paymentMethod , reservationDate , imp_uid , merchant_uid , reservationCount
+		) VALUES ( #{paymentMethod}, #{reservationDate} , #{imp_uid}, #{merchant_uid},  #{reservationCount} )
+	</insert>
+</mapper>

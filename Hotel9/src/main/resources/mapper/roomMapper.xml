@@ -1,0 +1,46 @@
+<?xmlversion ="1.0"encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bit.camp.com.model.dao.RoomDAO">
+	<resultMap type="bit.camp.com.model.VO.room.RoomDTO" id="room">
+		<result property="roomCount" column="roomCount" javaType="int" />
+		<result property="roomNumber" column="roomNumber" javaType="int" />
+		<result property="reservationState" column="reservationState" javaType="boolean" />
+		<result property="roomPrice" column="roomPrice" javaType="int" />
+		<result property="roomSalePrice" column="roomSalePrice" javaType="int" />
+		<result property="roomPicture" column="roomPicture" javaType="string" />
+		<result property="roomPerson" column="roomPerson" javaType="int" />
+		<result property="roomTypeCount" column="roomTypeCount" javaType="int" />
+		<result property="roomInformation" column="roomInformation" javaType="string" />
+	</resultMap>
+	
+	
+	<select id="getOneRoom" resultType="bit.camp.com.model.VO.room.RoomDTO">
+		select * from room where roomPerson=#{roomPerson} limit 1;
+	</select>
+	
+	<select id="getAllRooms" resultType="bit.camp.com.model.VO.room.RoomDTO">
+		select * from room
+	</select>
+	
+	<select id="getAvailableStandart" resultType="bit.camp.com.model.VO.room.RoomDTO">
+		SELECT * FROM room where roomPerson=2 limit 1;
+	</select>
+	
+	<select id="getAvailableDouble" resultType="bit.camp.com.model.VO.room.RoomDTO">
+		SELECT * FROM room where roomPerson=3 limit 1;
+	</select>
+	
+	<select id="getAvailablePremium" resultType="bit.camp.com.model.VO.room.RoomDTO">
+		SELECT * FROM room where roomPerson=4 limit 1;
+	</select>
+	
+	<select id="getAvailableFamily" resultType="bit.camp.com.model.VO.room.RoomDTO">
+		SELECT * FROM room where roomPerson=6 limit 1;
+	</select>
+	
+	<select id="getAvailableSuite" resultType="bit.camp.com.model.VO.room.RoomDTO">
+		SELECT * FROM room where roomPerson=10 limit 1;
+	</select>
+	
+	
+</mapper>

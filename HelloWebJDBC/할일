@@ -1,0 +1,45 @@
+
+~~~/login 엔터	ok
+	Controller ==> EmpLoginController	ok
+		login(), call ==> /login, get	ok
+		==> return jsp call 	ok
+	로그인 화면 : login.jsp
+		로그인
+			사원번호
+			이름
+	로그인 버튼을 클릭하면
+로그인 ㅊ ㅓ리 ==> loginProcess ==> Controller	ok
+	loginProcess(), call => /loginProcess, post	ok 
+	
+	 
+		쿼리 => 결과 받아서 
+		=> DB 접속 : DBConnection
+		=> 쿼리 담당 클래스 : 
+			EmpService - interface
+				loginProcess(사번, 이름)
+					emp 테이블에서 사번과 이름이 있으면 그 정보를 리턴
+						없으면 null
+			EmpServiceImpl - class
+			서비스
+	
+	jsp call
+	
+	성공 : welcome.jsp	ok
+	실패 : 첫 화면으로 이동 => 메세지 출력
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

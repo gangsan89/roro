@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bit.camp.com.model.dao.ManagerDao">
+	<!-- 예약리스트 -->
+	<resultMap type="rsrvlistDto" id="rsrvlistDTO">
+		<result property="reservationCount" column="reservationCount"
+			javaType="int" />
+		<result property="customerName" column="customerName"
+			javaType="String" />
+		<result property="roomType" column="roomType" javaType="String" />
+		<result property="roomNumber" column="roomNumber"
+			javaType="int" />
+		<result property="reservationStartDate"
+			column="reservationStartDate" javaType="java.sql.Date"
+			jdbcType="DATE" />
+		<result property="reservationFinishDate"
+			column="reservationFinishDate" javaType="java.sql.Date"
+			jdbcType="DATE" />
+		<result property="editState" column="editState" />
+	</resultMap>
+
+	<resultMap type="room" id="room">
+		<result property="roomPrice" column="roomPrice" />
+		<association property="roomTypeTable"
+			javaType="roomTypeTable">
+			<result property="roomType" column="roomType" />
+		</association>
+	</resultMap>
+
+	<select id="getAllRsrvlistDTO" resultMap="rsrvlistDTO">
+		SELECT reservation.reservationCount, customer.customerName,
+		roomtype.roomType, room.roomNumber, reservation.reservationStartDate,
+		reservation.reservationFinishDate, reservationedit.editState
+		FROM reservation, room, roomType, customer, reservationEdit
+		WHERE reservation.RoomCount = room.roomCount
+		AND room.roomTypeCount = roomType.roomTypeCount
+		AND customer.customerCount = reservation.customerCount
+		AND reservation.editCode = reservationedit.editCode
+	</select>
+
+	<!-- 객실 예약 현황 -->
+	<resultMap type="roomMngDTO" id="roomMngDTO">
+		<result property="roomType" column="roomType" javaType="String" />
+		<result property="roomNumber" column="roomNumber"
+			javaType="int" />
+		<result property="editState" column="editState" />
+	</resultMap>
+
+	<select id="getAllRoomMngDTO" resultMap="roomMngDTO">
+		select roomtype.roomType, room.roomNumber, reservationedit.editState
+		FROM reservation, room, roomType, reservationEdit
+		WHERE reservation.RoomCount = room.roomCount
+		AND room.roomTypeCount = roomType.roomTypeCount
+		AND reservation.editCode = reservationedit.editCode
+	</select>
+
+	<!-- 관리자 로그인 -->
+	<select id="adminLogin" resultType="int" parameterType="manager">
+		select count(*)
+		from manager
+		where managerID=#{managerID} and managerPW=#{managerPW}
+	</select>
+
+	<!-- 관리자 상품변경 페이지로 이동할때 뿌려주는 값 -->
+	<select id="productPriceChange" resultMap="room">
+		select distinct	roomType.roomType roomType, room.roomprice roomPrice
+		from room, roomType
+		where room.RoomTypeCount = roomType.RoomTypeCount
+	</select>
+	
+	<!-- 룸 가격 변경 프로세스 -->
+	<update id="changePrice" parameterType="room">
+		update room set roomPrice= #{roomPrice}
+		where roomTypeCount = (select roomTypeCount
+								from roomType
+								where roomType = #{roomTypeTable.roomType} )
+	</update>
+
+
+</mapper> 

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bit.camp.com.model.dao.CustomerDao">
+
+	<resultMap type="reservation" id="reservation_result">
+		<result property="reservationStartDate"
+			column="reservationStartDate" javaType="java.sql.Date"
+			jdbcType="DATE" />
+		<result property="reservationFinishDate"
+			column="reservationFinishDate" javaType="java.sql.Date"
+			jdbcType="DATE" />
+		<result property="totalAmount" column="totalAmount" />
+
+		<association property="room" javaType="Room">
+			<result property="roomPerson" column="roomPerson" />
+			<association property="roomTypeTable"
+				javaType="roomTypeTable">
+				<result property="roomType" column="roomType" />
+			</association>
+		</association>
+	</resultMap>
+
+	<!-- 로그인 -->
+	<select id="login" parameterType="customer" resultType="string">
+		select customerID 
+		from hotel.customer
+		where customerID= #{customerID} and	customerPW= #{customerPW}
+	</select>
+	
+	<!-- 회원가입 -->
+	<!-- INSERT INTO 테이블명 [컬럼1, 컬럼2, ...] VALUES (값1, 값2, ...); -->
+	<insert id="signUp" parameterType="customer">
+		insert into hotel.customer (customerID, customerPW, customerName,
+		customerPhoneNumber, SSNumber)
+		values ( #{customerID}, #{customerPW},
+		#{customerName},
+		#{customerPhoneNumber}, #{SSNumber} )
+		<!-- id,pw,name,phoneNum,SSNum -->
+	</insert>
+
+	<!-- 아이디 중복체크 -->
+	<select id="checkID" resultType="int" parameterType="String">
+		select
+		count(*) from hotel.customer where customerId = #{customerID}
+	</select>
+
+	<!-- 주민등록번호 중복체크 -->
+	<select id="checkSSNumber" resultType="int"
+		parameterType="String">
+		select count(*) from hotel.customer where SSNumber =
+		#{SSNumber}
+	</select>
+
+	<!-- 아이디 찾기 -->
+	<select id="searchID" resultType="String"
+		parameterType="customer">
+		select customerID from hotel.customer where
+		customerName= #{customerName}
+		and SSNumber= #{SSNumber}
+	</select>
+
+	<!-- 비밀번호 찾기 -->
+	<select id="searchPW" resultType="String"
+		parameterType="customer">
+		select customerPW from hotel.customer where customerID=
+		#{customerID} and
+		customerName= #{customerName} and SSNumber=
+		#{SSNumber}
+	</select>
+
+	<!-- 회원탈퇴 -->
+	<!-- DELETE table_name WHERE id = 1105; -->
+	<delete id="deleteCustomer" parameterType="customer">
+		delete from customer
+		where
+		customerID= #{customerID} and customerPW = #{customerPW}
+	</delete>
+
+	<!-- 회원 목록 조회 -->
+	<select id="selectAllCustomer">
+		select * from hotel.customer;
+	</select>
+
+	<!-- ///////////////////////////////////////////////////////////////////////// -->
+	<!-- 회원 Mypage -->
+	<select id="customerMypageView" resultType="customer">
+		select
+		customerID
+		,
+		customerPW
+		, customerName
+		, SSNumber
+		, customerPhoneNumber
+		from
+		hotel.customer
+		where customerId = #{customerID}
+	</select>
+
+
+	<!-- 회원정보수정 -->
+	<update id="customerModify" parameterType="customer">
+		update customer
+		set
+		customerName = #{customerName}
+		,customerPW = #{customerPW}
+		,customerPhoneNumber = #{customerPhoneNumber}
+		where
+		customerID =
+		#{customerID}
+	</update>
+
+	<!-- 예약정보 확인 -->
+	<select id="customerReservation" resultMap="reservation_result">
+		select R.* ,
+		RS.roomPerson roomPerson, RT.roomType roomType
+		FROM hotel.reservation R
+		inner join
+		hotel.customer C
+		on R.customerCount = C.customerCount
+		inner
+		join
+		hotel.room RS
+		on R.roomCount = RS.roomCount
+		inner join
+		hotel.roomType RT
+		on RS.roomTypeCount = RT.roomTypeCount
+		where
+		C.customerID =
+		#{customerID}
+	</select>
+
+
+</mapper>

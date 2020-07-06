@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+</head>
+<body>
+<h4 th:text="${db}"></h4>
+<input type="text">
+안녕?
+
+
+<!-- 	<form th:action="@{/welcome}" method="post" th:object="${db}">
+		<h5>아이디입력</h5><input type="text" th:field="*{user_Id}" >
+		<h5>비밀번호 입력</h5><input type="password" th:filed="*{user_password}" >
+		<h5>닉넴입력</h5><input type="text" th:field="*{user_name}" >
+		<button type="submit" >접속</button>
+	</form> -->
+</body>
+</html>

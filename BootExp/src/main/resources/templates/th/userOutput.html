@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<p th:text="${userVO.id}+' 님 안녕하세요'"></p>
+	<p th:text="#{msg(${user.id})}"></p>
+	
+	id: <p th:text="${userVO.id}"></p>
+	name: <p th:text="${userVO.name}"></p>
+	addr: <p th:text="${userVO.addr}"></p>
+	<br><br>
+	
+	<div th:object="${userVO}">
+	id: <p th:text="*{id}"></p>
+	name: <p th:text="*{name}"></p>
+	addr: <p th:text="*{addr}"></p>
+	
+	</div>
+	
+</body>
+</html>

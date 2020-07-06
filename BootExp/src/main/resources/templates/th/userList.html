@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<th>번호</th>
+			<th>아이디</th>
+			<th>이름</th>
+			<th>주소</th>
+			<th>성별</th>
+		</tr>
+		<tr th:each="userVO,userVOStat : ${userList}">
+			<td th:text="${userVOStat.count}">1</td>
+			<td th:text="${userVO.id}"></td>
+			<div th:insert="~{footer :: res}"></div>
+			<div th:insert="~{footer :: res}"></div>
+			<div th:insert="~{footer :: res}"></div>
+			<td th:text="${userVO.name}"></td>
+			<td th:text="${userVO.addr}"></td>
+			<td th:text="${userVO.Female}? #{female} : #{male}"></td>
+			
+			
+	</table>
+	<div th:fragment="copy"></div>
+	&#9827; BLACK CLUB SUIT &#9827; 
+	
+	~{footer "" copy}<br>
+	<div th:insert="~{footer :: copy}"></div><br><br>
+	
+	~{footer }<br>
+	<div th:insert="~{footer }"></div><br><br>
+	
+	~{:: copy}<br>
+	<div th:insert="~{:: copy }"></div><br><br>
+	
+	~{:: copy}== ~{this:: copy}<br>
+	<div th:insert="~{this:: copy }"></div><br><br>
+	
+	th:insert footer :: copy<br>
+	<div th:insert="footer :: copy"></div><br><br>
+	
+	th:replace footer :: copy<br>
+	<div th:replace="footer :: copy"></div><br><br>
+	
+	th:include footer :: copy<br>
+	<div th:include="footer :: copy"></div><br><br>
+	
+	
+	
+	
+	
+	
+	
+</body>
+</html>

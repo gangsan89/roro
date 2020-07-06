@@ -24,6 +24,9 @@ public class CoffeeProvider implements CoffeeDetails{
 	private final CoffeeRepository coffeeRepository;
 	
 	private final AllCoffeesDataFetcher allCoffeesDataFetcher;
+	
+	private final AllCoffeesOrderByDataFetcher allCoffeesOrderByDataFetcher;
+	
 	private final CoffeeDataFetcher coffeeDataFetcher;
 	
 	@Value("classpath:coffees.graphql")
@@ -31,9 +34,10 @@ public class CoffeeProvider implements CoffeeDetails{
 	
 	private GraphQL graphQL;
 	
-	public CoffeeProvider(CoffeeRepository coffeeRepository, AllCoffeesDataFetcher allCoffeesDataFetcher, CoffeeDataFetcher coffeeDataFetcher) {
+	public CoffeeProvider(CoffeeRepository coffeeRepository, AllCoffeesDataFetcher allCoffeesDataFetcher, AllCoffeesOrderByDataFetcher allCoffeesOrderByDataFetcher, CoffeeDataFetcher coffeeDataFetcher) {
 		this.coffeeRepository = coffeeRepository;
 		this.allCoffeesDataFetcher = allCoffeesDataFetcher;
+		this.allCoffeesOrderByDataFetcher = allCoffeesOrderByDataFetcher;
 		this.coffeeDataFetcher = coffeeDataFetcher;
 	}
 	
@@ -60,6 +64,7 @@ public class CoffeeProvider implements CoffeeDetails{
 		RuntimeWiring wiring = RuntimeWiring.newRuntimeWiring()
 				.type("Query", typeWiring -> typeWiring
 						.dataFetcher("allCoffees", allCoffeesDataFetcher)
+						.dataFetcher("allCoffeesOrderBy", allCoffeesOrderByDataFetcher)
 						.dataFetcher("coffee", coffeeDataFetcher))
 				.build();
 		GraphQLSchema schema = new SchemaGenerator().makeExecutableSchema(typeRegistry, wiring);

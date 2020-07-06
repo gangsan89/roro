@@ -1,0 +1,46 @@
+병렬처리
+
+대상을 만들때 
+Thread 두가지 -
+	extends Thread
+	implements Runnable
+
+thread.start() ==> run()
+
+스레드가 런 메소드를 실행할때 어떤것을 가지고 실행하게 할거냐
+런 메소드를 실행시키는 방법이 두가지 있다
+
+러너블은 스레드가 아니다
+
+class AThread extends Thread {
+	~~ run() {
+		/// Athread 의 인스턴스가 실행가능한 상태
+		// 에서 실행할 문장
+	}
+}
+
+class BTarget implements Runnable {
+	~~ run() {
+		thread들이 공통적으로 사용할 문장, 자원
+	}
+}
+
+Thread x1 = new AThread ();
+Thread x2 = new AThread ();
+Thread x3 = new AThread ();
+x1.start;
+x2.start; //이게 멀티스레드가 아니다
+
+Thread x1 = new AThread ();
+Thread x2 = new SaveThread ();
+Thread x3 = new CompileThread ();
+x1.start;
+x2.start; x3.start; //이게 멀티스레드다 여러 스레드들이 동시에 실행되는것
+
+Runnable target = new BTarget();
+Thread 고객1 = new Thread( target );
+Thread 고객2 = new Thread( target );
+Thread 고객3 = new Thread( target );
+
+
+

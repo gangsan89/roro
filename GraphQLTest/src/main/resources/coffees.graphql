@@ -1,0 +1,20 @@
+schema {
+ query: Query
+}
+
+enum SortOrder {
+ ASC
+ DESC
+}
+
+type Query {
+ allCoffeesOrderBy(sortOrder: SortOrder!, sortBy: String!): [Coffee]
+ allCoffees: [coffee]
+ coffee(id: String): Coffee
+}
+
+type Coffee {
+ cid: String
+ name: String
+}
+ 

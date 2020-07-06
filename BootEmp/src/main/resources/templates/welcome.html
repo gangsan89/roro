@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:each="users : ${userList}">
+		<h2 th:text="|${usersStat.count}  ${users.userId}  ${users.userName} |+
+					 ( ${users.userGenderCode} eq 0 ? #{msg.female} : #{msg.male} )"></h2> 
+		
+		<!-- <h2 th:text="|${usersStat.count}  ${users.userId}  ${users.userName} |"></h2>
+		<h2 th:text="${users.userGenderCode} eq 0 ? '남자' : '여자'"></h2> -->
+	</div>
+	 <div th:insert=" :: copy"></div>
+
+  <div th:replace=" :: copy"></div>
+
+  <div th:include=" :: copy"></div>
+	
+	
+	<!-- <div th:each="users : ${userList}">
+		<h2 th:text="${users}"></h2>
+	</div> -->
+
+<!--  <div th:object="${user}">
+	<p>Name : <span th:text="#{msg.welcome(*{userNickName})}"></span>
+</div> 
+ -->
+<!-- <p>Name : <span th:text="${user.userId}+#{msg.welcome}"></span> -->
+
+
+<footer th:fragment="copy">
+  &copy; 2020 The Good Thymes Virtual Grocery
+</footer>
+
+</body>
+</html>

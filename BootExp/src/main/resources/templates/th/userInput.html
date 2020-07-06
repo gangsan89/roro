@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="/inProc" method="post">
+		id: <input type="text" name="id"><br>
+		name: <input type="text" name="name"><br>
+		addr: <input type="text" name="addr"><br>
+		<button type="submit">인풋풋풋 메롱</button>
+	</form>
+	<br>
+	<form th:action="@{/inProc}" method="post">
+		id: <input type="text" name="id"><br>
+		name: <input type="text" name="name"><br>
+		addr: <input type="text" name="addr"><br>
+		<button type="submit">인풋풋풋 메롱</button>
+	</form>
+	<br>
+	<form th:action="@{/inProc}" method="post" th:object="${userVO}">
+		id: <input type="text" th:field="*{id}" /><br>
+		name: <input type="text" th:field="*{name}" /><br>
+		addr: <input type="text" th:field="*{addr}" /><br>
+		<button type="submit">th:로 만든 인풋</button>
+	</form>
+	<br>
+	<!-- <form th:action="@{/userList}" method="post" th:object="${userVO}">
+		id: <input type="text" th:field="*{id}" /><br>
+		name: <input type="text" th:field="*{name}" /><br>
+		addr: <input type="text" th:field="*{addr}" /><br>
+		성별: <input type="text" th:field="*{Female}" /><br>
+		<button type="submit">list input</button>
+	</form> -->
+	
+</body>
+</html>

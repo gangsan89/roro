@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>타이틀</title>
+</head>
+<body>
+${userName}<br>
+	<h3 th:text="test"></h3>
+	<p th:text="${userName}">${userName}</p>
+	<!-- <p th:text="내 이름 : ${userName}"></p> -->
+	<p th:text="'내 이름 : '+ ${#  userName}"></p>
+	<p th:text="'오늘의 날짜는: '+ ${today}"></p>
+	<p>Today is: <span th:text="${#dates.format(today, 'yyyy-MM-dd')}"></span>.</p>
+</body>
+</html>

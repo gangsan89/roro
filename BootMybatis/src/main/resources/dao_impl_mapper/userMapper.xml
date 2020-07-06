@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.exam.demo.UserDao">
+		<select id="selectAll" resultType="com.exam.demo.dao.vo.User">
+			select * from sample.user 
+		</select>
+	</mapper>

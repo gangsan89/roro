@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1 th:text="${db}"></h1>
+	<form th:object="${user}" th:action="@{/welcome}" method="post">
+	<h5>아이디입력</h5><input name="userId">
+	<h5>비밀번호 입력</h5><input name="userPassword">
+	<h5>닉넴입력</h5><input name="userNickName">
+	<button type="submit" >접속</button>
+	</form>
+</body>
+</html>

@@ -20,4 +20,8 @@ public class Coffee {
 		this.cid = cid;
 		this.name = name;
 	}
+	
+	public Coffee() {
+		// TODO Auto-generated constructor stub
+	}
 }

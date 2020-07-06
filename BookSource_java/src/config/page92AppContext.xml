@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!--  bean의 scope 확인 예 -->
+	<bean id="greetingTarget"
+		class="com.book.page92.GreetingServiceImpl">
+		<property name="greeting" value="Hello" />
+	</bean>
+
+	<bean id="beforeLogAdvice"
+		class="com.book.page92.MethodBeforeLogAdvice" />
+	<bean id="afterLogAdvice"
+		class="com.book.page92.MethodAfterLogAdvice" />
+	<bean id="throwsLogAdvice"
+		class="com.book.page92.MethodThrowsLogAdvice" />
+	<bean id="performanceCheckAdvice"
+		class="com.book.page92.PerformanceCheckAdvice" />
+
+	<bean id="helloPointcut"
+		class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern" value=".*say.*" />
+		<!-- ".*sayHello.*" -->
+	</bean>
+	
+	<!-- 메소드 패턴 규칙에 맞는 것을 찾았을때 언제 어떤 작업을 할것인가 ! 공통적으로!! -->
+	<bean id="helloAdvisor"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice">
+			<ref bean="beforeLogAdvice" />
+		</property>
+		<property name="pointcut">
+			<ref bean="helloPointcut" />
+		</property>
+	</bean>
+	<bean id="afterLogAdvisor"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice">
+			<ref bean="afterLogAdvice" />
+		</property>
+		<property name="pointcut">
+			<ref bean="helloPointcut" />
+		</property>
+	</bean>
+	<bean id="exceptionAdvisor"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice">
+			<ref bean="throwsLogAdvice" />
+		</property>
+		<property name="pointcut">
+			<ref bean="helloPointcut" />
+		</property>
+	</bean>
+	
+	<!-- 누구를 (어떤 대상 클래스의 빈을) 어떤 필터링을 거치도록 정해주는 자리 -->
+	<bean id="greeting"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target">
+			<ref bean="greetingTarget" />
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>helloAdvisor</value>
+				<value>afterLogAdvisor</value>
+				<value>exceptionAdvisor</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- interceptor test-->
+	<bean id="interceptorPointcut"
+		class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern" value=".*calc.*" />
+	</bean>
+	
+	<bean id="interceptorAdvisor"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice">
+			<ref bean="performanceCheckAdvice" />
+		</property>
+		<property name="pointcut">
+			<ref bean="interceptorPointcut" />
+		</property>
+	</bean>
+	
+	<bean id="interceptorTest"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target">
+			<ref bean="greetingTarget" />
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>interceptorAdvisor</value>
+				
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	
+	
+</beans>
+

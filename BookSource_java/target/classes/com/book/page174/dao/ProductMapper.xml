@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.book.page174.dao.ProductMapper">
+	<select id="findProductList" resultType="com.book.page174.Product">
+		select name, price from product where id = #{id} 
+	</select>
+	<select id="findProductPrice" resultType="com.book.page174.Product">
+		select name, price from product where price >= #{price}
+	</select>
+	<!-- <select id="findProductList3" resultType="com.book.page174.Product">
+		select * from product where id>100
+	</select> -->
+	
+</mapper>

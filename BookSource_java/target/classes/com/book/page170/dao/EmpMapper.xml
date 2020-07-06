@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.book.page170.dao.EmpDao">
+
+	<select id="selectEmp" parameterType="int" resultType="com.book.page170.domain.Emp">
+		select * from emp where empNo = #{empNo} 
+	</select>
+	
+	<select id="getAllEmpNo" resultType="int">
+		select empNo from emp	
+	</select>
+	
+	<insert id="insertEmp" parameterType="Emp">
+		insert into emp (empNo, eName, job, mgr, hiredate, sal, comm, deptNo)
+		values (#{empNo}, #{eName}, #{job}, #{mgr}, #{hiredate}, #{sal}, #{comm}, #{deptNo})
+	</insert>
+	
+	<select id="getAllEmps" resultType="Emp">
+		select * from emp
+	</select>
+	
+	<update id="updateEmp" parameterType="Emp">
+		update emp set eName = #{eName}, job = #{job} where empNo = #{empNo}
+	</update>
+	
+	<delete id="deleteEmp" parameterType="int">
+		delete from emp where empNo=#{empNo}
+	</delete>
+</mapper>
